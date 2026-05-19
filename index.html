@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ERM Navigator · Design Directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Inter', system-ui, sans-serif; }
+  * { box-sizing: border-box; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="design-canvas.jsx"></script>
+<script type="text/babel" src="erm-shared.jsx"></script>
+<script type="text/babel" src="erm-direction-a.jsx"></script>
+<script type="text/babel" src="erm-direction-b.jsx"></script>
+<script type="text/babel" src="erm-direction-c.jsx"></script>
+<script type="text/babel" src="erm-direction-d.jsx"></script>
+<script type="text/babel" src="erm-direction-d-screen2.jsx"></script>
+<script type="text/babel" src="erm-direction-e.jsx"></script>
+<script type="text/babel" src="erm-direction-f.jsx"></script>
+<script type="text/babel" src="erm-direction-g.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const Notes = ({ children, accent }) => (
+  <div style={{
+    width: 'auto', padding: '14px 18px',
+    background: accent === 'recommended' ? 'rgba(196,84,42,0.10)' : accent === 'current' ? 'rgba(38,27,7,0.05)' : 'rgba(20,24,31,0.04)',
+    border: `1px solid ${accent === 'recommended' ? 'rgba(196,84,42,0.4)' : accent === 'current' ? 'rgba(38,27,7,0.18)' : 'rgba(20,24,31,0.10)'}`,
+    borderRadius: 8,
+    fontFamily: 'Inter Tight, Inter, sans-serif', fontSize: 13, lineHeight: 1.5,
+    color: '#14181F',
+  }}>
+    {children}
+  </div>
+);
+
+const ABoard = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes accent="current">
+      <strong>Current state · `main` branch.</strong> "Editorial Risk Atlas" — warm cream paper,
+      Fraunces serif hero, Saudi-gold accent, Roman folios, JetBrains Mono marginalia. Reads
+      like an institutional quarterly. Fits the board PDF; heavy for daily operators.
+    </Notes>
+    <DirectionA />
+  </div>
+);
+const GBoard = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes accent="current">
+      <strong>Current state · `runway-rewrite` branch.</strong> Tokens extracted from runway.com
+      via Playwright getComputedStyle() — bg #F8F7F5, ink #261B07 warm brown-black, Runway marigold
+      #F9A600 CTA, warm beige #E3DFD5 border, 3-layer tactile shadow, Inter throughout (Fraunces
+      reserved for wordmark), BU pastel tints (peach / mist blue / sage / cream / rose / violet).
+      Faithfully renders the live RNOSCommandCenter component.
+    </Notes>
+    <DirectionG />
+  </div>
+);
+
+const DBoard = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes accent="recommended">
+      <strong>Proposal D · The Live Brief.</strong> Inspired by Louisa.ai's hero pattern — the
+      Today screen is not a dashboard but a named, time-stamped signal card with owner, originator,
+      evidence, and the Phase-1 math attached. Workspace below for the deeper read. Solves: turn
+      maturity into a daily decision instead of a quarterly report.
+    </Notes>
+    <DirectionD />
+  </div>
+);
+const D2Board = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes accent="recommended">
+      <strong>D · Action Plan drill-down.</strong> Where you land after clicking "Open action plan".
+      Runway-style scenario lanes (Status quo / Phase-1 only / Full sequence), affected-vector
+      table highlighting which actions target which questions.
+    </Notes>
+    <ActionPlanScreen />
+  </div>
+);
+const EBoard = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes accent="recommended">
+      <strong>Proposal E · Time Machine.</strong> Drift detection IS the product. Hero is a
+      12-month scrubbable timeline — drag the playhead to any month and the maturity, pillars,
+      and events animate to that snapshot. Inflection points pinned. Solves: drift is the patent
+      moat, but every dashboard buries it in a corner card.
+    </Notes>
+    <DirectionE />
+  </div>
+);
+const FBoard = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes accent="recommended">
+      <strong>Proposal F · The Conversation.</strong> Throws out the 100-question grid entirely.
+      Navigator AI conducts the assessment as a chat with adaptive depth — say "we had a March
+      near-miss" and it captures three vectors, links your evidence, flags a follow-up. The 100
+      vectors are captured invisibly. Solves: nobody wants to tick 100 boxes.
+    </Notes>
+    <DirectionF />
+  </div>
+);
+const BBoard = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes>
+      <strong>B · Operations Console (alternative direction).</strong> Dark mono-forward
+      exploration. Kept for context; reads as internal ops tool, not investor-pitch platform.
+    </Notes>
+    <DirectionB />
+  </div>
+);
+const CBoard = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes>
+      <strong>C · Earlier hybrid (superseded).</strong> Halfway between Atlas and the proposals.
+      D commits further.
+    </Notes>
+    <DirectionC />
+  </div>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <DesignCanvas>
+    <DCSection
+      id="memo"
+      title="Recommendation memo — after reading CONTEXT.md"
+      subtitle="The patent moat is reproducibility, not features. The demo target is the Generation Risk Treatment regression. Three proposals map cleanly to three different patent strengths."
+    >
+      <DCArtboard id="memo-card" label="Read this first" width={1440} height={520}>
+        <div style={{
+          width: 1440, padding: 36,
+          background: '#FFFFFF',
+          fontFamily: '"Inter Tight","Inter",system-ui,sans-serif',
+          fontSize: 14, lineHeight: 1.55, color: '#14181F',
+          borderRadius: 12, border: '1px solid rgba(20,24,31,0.10)',
+        }}>
+          <div style={{ ...{fontFamily:'"JetBrains Mono",monospace'}, fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#C4542A' }}>
+            ◐  After reading CONTEXT.md · what changes
+          </div>
+          <h2 style={{ fontSize: 30, fontWeight: 500, letterSpacing: '-0.025em', lineHeight: 1.15, margin: '12px 0 4px' }}>
+            The moat is determinism. Design for trust, not just delight.
+          </h2>
+          <p style={{ maxWidth: 980, color: 'rgba(20,24,31,0.74)' }}>
+            ERM Navigator's patent-defensible claim is that identical responses produce identical reports — pinned by 35 unit tests in CI. The demo
+            narrative is specific: <strong>Generation regresses at session 3, Risk Treatment drops −0.60, the operator hasn't flagged it</strong>.
+            Three proposals each map to a different cluster of patent claims:
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 18, marginTop: 22 }}>
+            {[
+              {
+                tag: 'D · Live Brief', tone: '#C4542A',
+                claims: '13, 14, 15, 17, 22',
+                what: 'Standards provenance + executive PDF + session history + AI narration + drift trend.',
+                why: 'The defensible default. Surfaces the Risk-Treatment regression on the Today screen as a named, time-stamped, evidence-linked signal. Reproducibility trust band visible in-hero.',
+              },
+              {
+                tag: 'E · Time Machine', tone: '#E8B057',
+                claims: '22 (drift trend) + 24 (reproducibility)',
+                what: '12-month scrubbable timeline. Replay any month. Inflection events pinned.',
+                why: 'The strongest patent visualizer. Watching the scrubber prove that Mar-14 \u2192 today is the same number whether asked Tuesday or Friday IS the determinism story.',
+              },
+              {
+                tag: 'F · The Conversation', tone: '#7BAACD',
+                claims: '11 (rubric per question) + 12 (audit trail)',
+                what: 'Throws out the 100-question grid. Navigator AI conducts adaptive interview.',
+                why: 'Solves the assessment chore but invisibly captures the rubric-anchored 1\u20135 scores with timestamps. Highest customer-love payoff, highest design risk.',
+              },
+            ].map((c, i) => (
+              <div key={i} style={{
+                background: '#FAF7F1', padding: 18, borderRadius: 10,
+                borderTop: `3px solid ${c.tone}`, border: '1px solid rgba(20,24,31,0.10)',
+              }}>
+                <div style={{ ...{fontFamily:'"JetBrains Mono",monospace'}, fontSize: 10.5, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: c.tone }}>
+                  {c.tag} · Claims {c.claims}
+                </div>
+                <div style={{ fontSize: 14, fontWeight: 500, marginTop: 10, lineHeight: 1.4 }}>{c.what}</div>
+                <div style={{ fontSize: 13, color: 'rgba(20,24,31,0.72)', marginTop: 6, lineHeight: 1.5 }}>{c.why}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{ marginTop: 22, padding: 14, background: '#F4F0E8', borderRadius: 8, fontSize: 13, color: 'rgba(20,24,31,0.78)', lineHeight: 1.55 }}>
+            <strong>My take:</strong> ship <strong>D as the Today screen</strong> + <strong>E as the History tab</strong>. F is the bolder bet for after the investor close, when reinventing
+            the assessment can be a customer-love wedge. The branch comparison artifact (g vs a) is exactly what the CEO needs for the visual choice;
+            the proposals (D / E / F) are the product-shape choice that survives whichever visual wins.
+          </div>
+        </div>
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection
+      id="current"
+      title="Current state — what's on the branches today"
+      subtitle="Same data, same Command Center screen, rendered in each branch's actual design system. This is the CEO's visual A/B."
+    >
+      <DCArtboard id="g" label="`runway-rewrite` branch · current state" width={1440} height={1540}>
+        <GBoard />
+      </DCArtboard>
+      <DCArtboard id="a" label="`main` branch · current state (Editorial Atlas)" width={1440} height={1162}>
+        <ABoard />
+      </DCArtboard>
+    </DCSection>
+    <DCSection
+      id="proposed"
+      title="Proposed creative directions — mapped to patent claims"
+      subtitle="Each solves a different facet of the actual problem. D is the most defensible; E is the strongest patent visualizer; F is the boldest customer bet."
+    >
+      <DCArtboard id="d1" label="D · Live Brief — Today screen (claims 13/14/15/17/22)" width={1440} height={1540}>
+        <DBoard />
+      </DCArtboard>
+      <DCArtboard id="d2" label="D · Action Plan drill-down" width={1440} height={1540}>
+        <D2Board />
+      </DCArtboard>
+      <DCArtboard id="e" label="E · Time Machine — drift-as-product (claims 22 + 24)" width={1440} height={1320}>
+        <EBoard />
+      </DCArtboard>
+      <DCArtboard id="f" label="F · The Conversation — replaces questionnaire (claims 11 + 12)" width={1440} height={1240}>
+        <FBoard />
+      </DCArtboard>
+    </DCSection>
+    <DCSection
+      id="archive"
+      title="Earlier explorations (archived)"
+      subtitle="Considered and set aside."
+    >
+      <DCArtboard id="c" label="C · Hybrid (superseded)" width={1440} height={1162}>
+        <CBoard />
+      </DCArtboard>
+      <DCArtboard id="b" label="B · Operations Console" width={1440} height={1162}>
+        <BBoard />
+      </DCArtboard>
+    </DCSection>
+  </DesignCanvas>
+);
+</script>
+</body>
+</html>
