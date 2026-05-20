@@ -26,6 +26,8 @@
 <script type="text/babel" src="erm-direction-c.jsx"></script>
 <script type="text/babel" src="erm-direction-d.jsx"></script>
 <script type="text/babel" src="erm-direction-d-screen2.jsx"></script>
+<script type="text/babel" src="erm-direction-d-plus.jsx"></script>
+<script type="text/babel" src="erm-direction-d-plus-screens.jsx"></script>
 <script type="text/babel" src="erm-direction-e.jsx"></script>
 <script type="text/babel" src="erm-direction-f.jsx"></script>
 <script type="text/babel" src="erm-direction-g.jsx"></script>
@@ -76,6 +78,83 @@ const DBoard = () => (
       maturity into a daily decision instead of a quarterly report.
     </Notes>
     <DirectionD />
+  </div>
+);
+const DPlusBoard = () => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Notes accent="recommended">
+      <strong>★ D+ · synthesis · the actual answer.</strong> Keeps D's Louisa Live Brief hero +
+      reproducibility trust band, then grafts in <em>six</em> wins from the runway-rewrite branch:
+      (1) persistent left sidebar with <strong>per-BU pastel tints</strong> (peach Generation,
+      mist-blue Transmission, sage Distribution, cream Corporate, rose Subsidiaries, violet JV);
+      (2) animated count-up feel on the hero number; (3) inline sparkline next to it;
+      (4) <strong>focus-pillar inspector</strong> below the matrix (the runway-rewrite signature
+      "click a pillar → see its dimension breakdown" move); (5) <strong>drift area chart</strong>
+      with gradient, pinning the −0.60 Risk Treatment regression visually; (6) tactile 3-layer
+      shadow on the gold CTA. Risk Treatment is the focused pillar — matches the demo narrative.
+    </Notes>
+    <DirectionDPlus />
+  </div>
+);
+const ScopeCard = () => (
+  <div style={{
+    width: 1440, padding: 32,
+    background: '#FFFFFF',
+    fontFamily: '"Inter Tight","Inter",system-ui,sans-serif',
+    fontSize: 14, lineHeight: 1.55, color: '#14181F',
+    borderRadius: 12, border: '1px solid rgba(20,24,31,0.10)',
+  }}>
+    <div style={{ fontFamily: '"JetBrains Mono",monospace', fontSize: 11, fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#C4542A' }}>
+      ▣  Honest scope of work
+    </div>
+    <h2 style={{ fontSize: 28, fontWeight: 500, letterSpacing: '-0.022em', lineHeight: 1.15, margin: '10px 0 4px' }}>
+      We have 25% of the product map. Here's what's still un-designed.
+    </h2>
+    <p style={{ maxWidth: 940, color: 'rgba(20,24,31,0.74)', marginBottom: 20 }}>
+      The proposals on this canvas show ONE screen (Command Center) + ONE drilldown (Action Plan) + TWO bold reimaginings
+      (Time Machine, Conversation). The actual product flow runs through eight screens. Below: what we have, what's next.
+    </p>
+    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(8, 1fr)', gap: 8 }}>
+      {[
+        { l: 'Login',         s: 'todo',     who: '' },
+        { l: 'BU Scope',      s: 'partial',  who: 'sidebar in D+' },
+        { l: 'Assessment',    s: 'reimagined', who: 'F · Conversation' },
+        { l: 'Command Center', s: 'done',    who: 'D / D+ / G / A' },
+        { l: 'Action Plan',   s: 'done',     who: 'D-screen2' },
+        { l: 'History',       s: 'reimagined', who: 'E · Time Machine' },
+        { l: 'Evidence',      s: 'todo',     who: '' },
+        { l: 'PDF Report',    s: 'todo',     who: '' },
+      ].map((step, i) => {
+        const bg = step.s === 'done'       ? 'rgba(63,122,87,0.10)'
+                 : step.s === 'partial'    ? 'rgba(181,134,42,0.12)'
+                 : step.s === 'reimagined' ? 'rgba(196,84,42,0.10)'
+                 :                            'rgba(20,24,31,0.04)';
+        const fg = step.s === 'done'       ? '#3F7A57'
+                 : step.s === 'partial'    ? '#B5862A'
+                 : step.s === 'reimagined' ? '#C4542A'
+                 :                            'rgba(20,24,31,0.50)';
+        return (
+          <div key={i} style={{
+            background: bg, padding: 14, borderRadius: 8,
+            border: `1px solid ${fg}30`,
+          }}>
+            <div style={{ fontFamily: '"JetBrains Mono",monospace', fontSize: 9, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: fg }}>
+              {String(i+1).padStart(2,'0')}
+            </div>
+            <div style={{ fontSize: 14, fontWeight: 500, marginTop: 6, color: '#14181F' }}>{step.l}</div>
+            <div style={{ fontFamily: '"JetBrains Mono",monospace', fontSize: 10, color: fg, marginTop: 6, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              {step.s}
+            </div>
+            {step.who && <div style={{ fontSize: 11, color: 'rgba(20,24,31,0.60)', marginTop: 4, lineHeight: 1.4 }}>{step.who}</div>}
+          </div>
+        );
+      })}
+    </div>
+    <div style={{ marginTop: 22, padding: 14, background: '#F4F0E8', borderRadius: 8, fontSize: 13, color: 'rgba(20,24,31,0.78)', lineHeight: 1.55 }}>
+      <strong>Next session priorities (pick 2):</strong> Login + BU Scope (D+ aesthetic, ~1h each) ·
+      Evidence drawer (where the upload UX lives, ~1.5h) · PDF Report mock (5-page A4, what the board sees, ~2h) ·
+      Or: push F (Conversation) to a clickable flow if the assessment chore is the biggest customer-love bet.
+    </div>
   </div>
 );
 const D2Board = () => (
@@ -202,7 +281,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       title="Current state — what's on the branches today"
       subtitle="Same data, same Command Center screen, rendered in each branch's actual design system. This is the CEO's visual A/B."
     >
-      <DCArtboard id="g" label="`runway-rewrite` branch · current state" width={1440} height={1540}>
+      <DCArtboard id="g" label="`runway-rewrite` branch · cleaned up" width={1440} height={1280}>
         <GBoard />
       </DCArtboard>
       <DCArtboard id="a" label="`main` branch · current state (Editorial Atlas)" width={1440} height={1162}>
@@ -210,20 +289,51 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </DCArtboard>
     </DCSection>
     <DCSection
-      id="proposed"
-      title="Proposed creative directions — mapped to patent claims"
-      subtitle="Each solves a different facet of the actual problem. D is the most defensible; E is the strongest patent visualizer; F is the boldest customer bet."
+      id="scope"
+      title="Honest scope — what we've actually designed"
+      subtitle="Owning the gap. I built a dashboard + drilldown + two reimaginings. The full product surface is 8 screens; we have 25% of it."
     >
-      <DCArtboard id="d1" label="D · Live Brief — Today screen (claims 13/14/15/17/22)" width={1440} height={1540}>
-        <DBoard />
+      <DCArtboard id="scope-card" label="Designed vs to-do" width={1440} height={520}>
+        <ScopeCard />
       </DCArtboard>
-      <DCArtboard id="d2" label="D · Action Plan drill-down" width={1440} height={1540}>
+    </DCSection>
+    <DCSection
+      id="full-flow"
+      title="D+ · the full product surface"
+      subtitle="Every screen of the flow in D+'s system. Login → Scope → Assessment → Command Center (★ the demo screen) → Action Plan → Evidence → PDF Report."
+    >
+      <DCArtboard id="dp-login" label="01 · Login" width={1680} height={1040}>
+        <DPLoginScreen />
+      </DCArtboard>
+      <DCArtboard id="dp-scope" label="02 · BU Scope" width={1680} height={1080}>
+        <DPScopeScreen />
+      </DCArtboard>
+      <DCArtboard id="dp-assess" label="03 · Assessment (single vector)" width={1680} height={1080}>
+        <DPAssessmentScreen />
+      </DCArtboard>
+      <DCArtboard id="d-plus-cc" label="04 · Command Center ★" width={1680} height={1560}>
+        <DPlusBoard />
+      </DCArtboard>
+      <DCArtboard id="d2-action" label="05 · Action Plan drill-down" width={1440} height={1540}>
         <D2Board />
       </DCArtboard>
-      <DCArtboard id="e" label="E · Time Machine — drift-as-product (claims 22 + 24)" width={1440} height={1320}>
+      <DCArtboard id="dp-evidence" label="06 · Evidence drawer" width={1680} height={1080}>
+        <DPEvidenceScreen />
+      </DCArtboard>
+      <DCArtboard id="dp-report" label="07 · PDF Report (5-page A4)" width={1680} height={1080}>
+        <DPReportScreen />
+      </DCArtboard>
+    </DCSection>
+
+    <DCSection
+      id="proposed"
+      title="Bolder reimaginings — alternatives to the traditional flow"
+      subtitle="E reinvents History. F reinvents Assessment. Both share D+'s aesthetic system."
+    >
+      <DCArtboard id="e" label="E · Time Machine — reinvents History (claims 22+24)" width={1440} height={1320}>
         <EBoard />
       </DCArtboard>
-      <DCArtboard id="f" label="F · The Conversation — replaces questionnaire (claims 11 + 12)" width={1440} height={1240}>
+      <DCArtboard id="f" label="F · The Conversation — reinvents Assessment (claims 11+12)" width={1440} height={1240}>
         <FBoard />
       </DCArtboard>
     </DCSection>
