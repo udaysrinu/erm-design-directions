@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ERM Navigator — Design Directions (paginated)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  @page { size: auto; margin: 0; }
+  html, body { margin: 0; padding: 0; background: #FAF7F1; font-family: 'Inter Tight', 'Inter', system-ui, sans-serif; color: #14181F; }
+  * { box-sizing: border-box; }
+  .page {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 64px 48px;
+    page-break-after: always; break-after: page;
+    background: #FAF7F1;
+  }
+  .page:last-child { page-break-after: auto; }
+  .page-header {
+    width: 1680px; max-width: 100%; margin-bottom: 24px;
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .page-eyebrow {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase; color: #C4542A;
+  }
+  .page-title {
+    font-family: 'Inter Tight', sans-serif;
+    font-size: 26px; font-weight: 500; letter-spacing: -0.022em;
+    margin: 6px 0 0;
+  }
+  .page-note {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: rgba(20,24,31,0.55); letter-spacing: 0.06em;
+  }
+  .artboard-wrap {
+    border-radius: 12px; overflow: hidden;
+    border: 1px solid rgba(20,24,31,0.10);
+    box-shadow: 0 6px 20px rgba(20,24,31,0.08);
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#FAF7F1"/><rect x="30" y="30" width="40" height="40" rx="6" fill="#C4542A"/><text x="50" y="58" text-anchor="middle" font-family="serif" font-size="22" font-weight="600" fill="#FAF7F1">ERM</text></svg></template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="erm-shared.jsx"></script>
+<script type="text/babel" src="erm-direction-a.jsx"></script>
+<script type="text/babel" src="erm-direction-b.jsx"></script>
+<script type="text/babel" src="erm-direction-c.jsx"></script>
+<script type="text/babel" src="erm-direction-d.jsx"></script>
+<script type="text/babel" src="erm-direction-d-screen2.jsx"></script>
+<script type="text/babel" src="erm-direction-d-plus.jsx"></script>
+<script type="text/babel" src="erm-direction-d-plus-screens.jsx"></script>
+<script type="text/babel" src="erm-direction-e.jsx"></script>
+<script type="text/babel" src="erm-direction-f.jsx"></script>
+<script type="text/babel" src="erm-direction-g.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const Page = ({ section, title, note, children }) => (
+  <div className="page">
+    <div className="page-header">
+      <div>
+        <div className="page-eyebrow">◐  {section}</div>
+        <h2 className="page-title">{title}</h2>
+      </div>
+      {note && <div className="page-note">{note}</div>}
+    </div>
+    <div className="artboard-wrap">{children}</div>
+  </div>
+);
+
+const CoverPage = () => (
+  <div className="page" style={{ justifyContent: 'center', minHeight: '100vh' }}>
+    <div style={{ maxWidth: 920, textAlign: 'center' }}>
+      <div style={{ fontFamily: '"JetBrains Mono", monospace', fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#C4542A', marginBottom: 18 }}>
+        ● ERM Navigator · Design directions
+      </div>
+      <h1 style={{ fontSize: 64, fontWeight: 500, letterSpacing: '-0.028em', lineHeight: 1.05, margin: 0 }}>
+        Same data,<br/>
+        <span style={{ color: '#C4542A' }}>seven directions.</span>
+      </h1>
+      <p style={{ fontSize: 16, color: 'rgba(20,24,31,0.72)', maxWidth: 640, margin: '24px auto 0', lineHeight: 1.55 }}>
+        Current state of both branches (G + A) · the D+ synthesis with the full 7-screen
+        product flow · two bolder reimaginings (E Time Machine, F Conversation). Each page below
+        shows one artboard at its native size.
+      </p>
+      <div style={{ marginTop: 56, display: 'inline-flex', alignItems: 'center', gap: 18, padding: '12px 20px', borderRadius: 999, background: '#F4F0E8', border: '1px solid rgba(20,24,31,0.10)', fontFamily: '"JetBrains Mono", monospace', fontSize: 11, letterSpacing: '0.08em', color: 'rgba(20,24,31,0.72)' }}>
+        <span><span style={{ color: '#3F7A57' }}>●</span> deterministic</span>
+        <span style={{ width: 1, height: 14, background: 'rgba(20,24,31,0.18)' }} />
+        <span>ISO 31000 · COSO ERM · NIST RMF · RIMS RMM</span>
+        <span style={{ width: 1, height: 14, background: 'rgba(20,24,31,0.18)' }} />
+        <span>35 tests · pinned in CI</span>
+      </div>
+    </div>
+  </div>
+);
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <>
+    <CoverPage />
+
+    <Page section="Current state" title="`runway-rewrite` branch — cleaned up" note="warm cream · marigold gold · Inter · pastel BU tints">
+      <DirectionG />
+    </Page>
+    <Page section="Current state" title="`main` branch — Editorial Atlas" note="warm cream · Fraunces · Saudi gold · Roman folios">
+      <DirectionA />
+    </Page>
+
+    <Page section="D+ · Full product flow · 01" title="Login" note="Reproducibility moat as the lede">
+      <DPLoginScreen />
+    </Page>
+    <Page section="D+ · Full product flow · 02" title="BU Scope" note="Pastel-tinted unit tiles · archive of past sessions">
+      <DPScopeScreen />
+    </Page>
+    <Page section="D+ · Full product flow · 03" title="Assessment (single vector)" note="1–5 rubric with anchor text (claim 11)">
+      <DPAssessmentScreen />
+    </Page>
+    <Page section="D+ · Full product flow · 04 ★" title="Command Center" note="The screen the demo opens on">
+      <DirectionDPlus />
+    </Page>
+    <Page section="D+ · Full product flow · 05" title="Action Plan drill-down" note="Scenario lanes + affected vectors">
+      <ActionPlanScreen />
+    </Page>
+    <Page section="D+ · Full product flow · 06" title="Evidence drawer" note="Per-BU pastel chips · vectors linked counter">
+      <DPEvidenceScreen />
+    </Page>
+    <Page section="D+ · Full product flow · 07" title="PDF Report (5-page A4)" note="What the board sees">
+      <DPReportScreen />
+    </Page>
+
+    <Page section="Bolder reimagining" title="E · Time Machine — reinvents History" note="Claims 22 + 24 · drift IS the product">
+      <DirectionE />
+    </Page>
+    <Page section="Bolder reimagining" title="F · The Conversation — reinvents Assessment" note="Claims 11 + 12 · AI-conducted interview">
+      <DirectionF />
+    </Page>
+  </>
+);
+</script>
+</body>
+</html>

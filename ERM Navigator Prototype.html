@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>ERM Navigator — Clickable Prototype</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Inter:wght@300;400;500;600;700&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin: 0; padding: 0; background: #1a1a1a; font-family: 'Inter Tight', 'Inter', system-ui, sans-serif; min-height: 100vh; }
+  * { box-sizing: border-box; }
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; height: 52px;
+    background: rgba(20,22,26,0.92); backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    display: flex; align-items: center; gap: 4px; padding: 0 16px;
+    z-index: 100; overflow-x: auto;
+  }
+  .nav-brand {
+    color: #E8B057; font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.18em;
+    text-transform: uppercase; padding: 0 14px 0 4px; flex-shrink: 0;
+  }
+  .nav-step {
+    padding: 7px 12px; border-radius: 6px; border: none;
+    background: transparent; color: rgba(245,242,236,0.62);
+    font-family: 'JetBrains Mono', monospace; font-size: 11px;
+    font-weight: 500; letter-spacing: 0.06em; cursor: pointer;
+    white-space: nowrap; transition: all 120ms;
+  }
+  .nav-step:hover { background: rgba(255,255,255,0.05); color: #F5F2EC; }
+  .nav-step.active { background: #C4542A; color: #FFF; }
+  .stage {
+    padding: 80px 24px 100px;
+    display: flex; justify-content: center; align-items: flex-start;
+    min-height: 100vh;
+  }
+  .stage-frame {
+    background: #FFFFFF; border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    overflow: hidden; max-width: 100%;
+  }
+  .advance {
+    position: fixed; bottom: 24px; right: 24px;
+    padding: 14px 24px; border-radius: 999px; border: none;
+    background: #C4542A; color: #FFF;
+    font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 600;
+    cursor: pointer; z-index: 100;
+    box-shadow: inset 0 2px 4px rgba(255,255,255,0.25), 0 8px 20px rgba(0,0,0,0.3);
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: transform 120ms;
+  }
+  .advance:hover { transform: translateY(-1px); }
+  .keyboard-hint {
+    position: fixed; bottom: 32px; left: 24px;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: rgba(245,242,236,0.42); letter-spacing: 0.10em;
+    z-index: 100;
+  }
+  .keyboard-hint kbd {
+    background: rgba(255,255,255,0.08); padding: 2px 6px;
+    border-radius: 3px; border: 1px solid rgba(255,255,255,0.12);
+    margin: 0 2px;
+  }
+</style>
+</head>
+<body>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect width="100" height="100" fill="#FAF7F1"/><rect x="30" y="30" width="40" height="40" rx="6" fill="#C4542A"/><text x="50" y="58" text-anchor="middle" font-family="serif" font-size="22" font-weight="600" fill="#FAF7F1">ERM</text></svg></template>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" src="erm-shared.jsx"></script>
+<script type="text/babel" src="erm-direction-d.jsx"></script>
+<script type="text/babel" src="erm-direction-d-screen2.jsx"></script>
+<script type="text/babel" src="erm-direction-d-plus.jsx"></script>
+<script type="text/babel" src="erm-direction-d-plus-screens.jsx"></script>
+<script type="text/babel" src="erm-direction-e.jsx"></script>
+<script type="text/babel" src="erm-direction-f.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useCallback } = React;
+
+const SCREENS = [
+  { id: 'login',    label: '01 · Login',         comp: () => window.DPLoginScreen() },
+  { id: 'scope',    label: '02 · Scope',         comp: () => window.DPScopeScreen() },
+  { id: 'assess',   label: '03 · Assess',        comp: () => window.DPAssessmentScreen() },
+  { id: 'today',    label: '04 · Today ★',       comp: () => window.DirectionDPlus() },
+  { id: 'action',   label: '05 · Action Plan',   comp: () => window.ActionPlanScreen() },
+  { id: 'evidence', label: '06 · Evidence',      comp: () => window.DPEvidenceScreen() },
+  { id: 'report',   label: '07 · PDF Report',    comp: () => window.DPReportScreen() },
+  { id: 'time',     label: '08 · Time Machine',  comp: () => window.DirectionE() },
+  { id: 'convo',    label: '09 · Conversation',  comp: () => window.DirectionF() },
+];
+
+function getHashScreen() {
+  const h = (window.location.hash || '').replace('#', '');
+  return SCREENS.find(s => s.id === h)?.id;
+}
+
+const Prototype = () => {
+  const [active, setActive] = useState(getHashScreen() || 'login');
+
+  useEffect(() => {
+    const onHash = () => setActive(getHashScreen() || 'login');
+    window.addEventListener('hashchange', onHash);
+    return () => window.removeEventListener('hashchange', onHash);
+  }, []);
+
+  const navigate = useCallback((id) => {
+    window.location.hash = id;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      const idx = SCREENS.findIndex(s => s.id === active);
+      if (e.key === 'ArrowRight' || e.key === ' ') {
+        e.preventDefault();
+        navigate(SCREENS[(idx + 1) % SCREENS.length].id);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        navigate(SCREENS[(idx - 1 + SCREENS.length) % SCREENS.length].id);
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [active, navigate]);
+
+  const idx = SCREENS.findIndex(s => s.id === active);
+  const current = SCREENS[idx];
+  const next = SCREENS[(idx + 1) % SCREENS.length];
+  const isLast = idx === SCREENS.length - 1;
+  const Comp = current.comp;
+
+  return (
+    <>
+      <nav className="nav">
+        <div className="nav-brand">◐ ERM Navigator · Prototype</div>
+        {SCREENS.map(s => (
+          <button
+            key={s.id}
+            className={`nav-step ${s.id === active ? 'active' : ''}`}
+            onClick={() => navigate(s.id)}
+          >{s.label}</button>
+        ))}
+      </nav>
+
+      <div className="stage">
+        <div className="stage-frame">
+          <Comp />
+        </div>
+      </div>
+
+      <button className="advance" onClick={() => navigate(next.id)}>
+        {isLast ? '↻ Start over' : `Next: ${next.label.split('·')[1]?.trim() || next.id}`}
+        {!isLast && <span>→</span>}
+      </button>
+
+      <div className="keyboard-hint">
+        <kbd>←</kbd><kbd>→</kbd> step · <kbd>space</kbd> advance
+      </div>
+    </>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Prototype />);
+</script>
+</body>
+</html>

@@ -28,6 +28,7 @@
 <script type="text/babel" src="erm-direction-d-screen2.jsx"></script>
 <script type="text/babel" src="erm-direction-d-plus.jsx"></script>
 <script type="text/babel" src="erm-direction-d-plus-screens.jsx"></script>
+<script type="text/babel" src="erm-direction-d-plus-todo.jsx"></script>
 <script type="text/babel" src="erm-direction-e.jsx"></script>
 <script type="text/babel" src="erm-direction-f.jsx"></script>
 <script type="text/babel" src="erm-direction-g.jsx"></script>
@@ -289,18 +290,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </DCArtboard>
     </DCSection>
     <DCSection
-      id="scope"
-      title="Honest scope — what we've actually designed"
-      subtitle="Owning the gap. I built a dashboard + drilldown + two reimaginings. The full product surface is 8 screens; we have 25% of it."
-    >
-      <DCArtboard id="scope-card" label="Designed vs to-do" width={1440} height={520}>
-        <ScopeCard />
-      </DCArtboard>
-    </DCSection>
-    <DCSection
       id="full-flow"
       title="D+ · the full product surface"
-      subtitle="Every screen of the flow in D+'s system. Login → Scope → Assessment → Command Center (★ the demo screen) → Action Plan → Evidence → PDF Report."
+      subtitle="Every screen of the flow in D+'s system. Login → Scope → Assessment → Command Center (★ the demo screen) → Action Plan → Evidence → PDF Report → History → Empty / system states → Settings → Mobile → AI mode."
     >
       <DCArtboard id="dp-login" label="01 · Login" width={1680} height={1040}>
         <DPLoginScreen />
@@ -322,6 +314,24 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       </DCArtboard>
       <DCArtboard id="dp-report" label="07 · PDF Report (5-page A4)" width={1680} height={1080}>
         <DPReportScreen />
+      </DCArtboard>
+      <DCArtboard id="dp-history" label="08 · History (traditional list)" width={1440} height={1080}>
+        <DPHistoryList />
+      </DCArtboard>
+      <DCArtboard id="dp-empty" label="09 · Empty states (first-run Scope + Evidence)" width={1440} height={760}>
+        <DPEmptyStates />
+      </DCArtboard>
+      <DCArtboard id="dp-states" label="10 · System & sync states" width={1440} height={920}>
+        <DPSystemStates />
+      </DCArtboard>
+      <DCArtboard id="dp-settings" label="11 · Multi-tenant settings (RBAC matrix)" width={1440} height={980}>
+        <DPSettings />
+      </DCArtboard>
+      <DCArtboard id="dp-mobile" label="12 · Mobile Today (iPad / phone)" width={1440} height={980}>
+        <DPMobile />
+      </DCArtboard>
+      <DCArtboard id="dp-ai" label="13 · AI mode — evidence validation + narration" width={1440} height={880}>
+        <DPAIComparison />
       </DCArtboard>
     </DCSection>
 
