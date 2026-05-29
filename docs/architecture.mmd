@@ -1,0 +1,44 @@
+flowchart LR
+    subgraph Host["Host page (index.html)"]
+        FONTS["Google Fonts<br/>Fraunces / Inter / Inter Tight / JetBrains Mono"]
+        REACT["React 18.3.1 UMD"]
+        BABEL["@babel/standalone<br/>JSX in browser, no build"]
+    end
+
+    subgraph Shared["erm-shared.jsx"]
+        DATA["ERM_DATA<br/>10 pillars × 4 dimensions<br/>scores / regressions / roadmap"]
+        HEAT["buildHeat()<br/>pillar × dimension cells"]
+        UTIL["radarPoints / severity / EASE"]
+    end
+
+    subgraph Canvas["design-canvas.jsx"]
+        DC["DesignCanvas<br/>Figma-like wrapper"]
+        SEC["DCSection / DCArtboard<br/>reorderable, editable, fullscreen"]
+        STATE[".design-canvas.state.json<br/>sidecar persistence"]
+    end
+
+    subgraph Variants["7 design directions"]
+        A["A · erm-direction-a.jsx"]
+        B["B · erm-direction-b.jsx"]
+        C["C · erm-direction-c.jsx"]
+        D["D · erm-direction-d.jsx + screen2"]
+        DPLUS["D+ · erm-direction-d-plus + screens + todo"]
+        E["E · erm-direction-e.jsx"]
+        F["F · erm-direction-f.jsx"]
+        G["G · erm-direction-g.jsx"]
+    end
+
+    subgraph SrcRef["src/ (reference TS port, not wired)"]
+        APP["App.tsx 84KB"]
+        PRIM["components/primitives.tsx"]
+        TREND["components/TrendChart.tsx"]
+    end
+
+    FONTS --> REACT
+    REACT --> BABEL
+    BABEL --> Shared
+    Shared --> Variants
+    Canvas --> Variants
+    Variants --> DC
+    DC --> STATE
+    Shared -.shape of data.-> SrcRef
